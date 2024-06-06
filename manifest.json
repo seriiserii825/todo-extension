@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "base-chrome-vue-extension",
-  "description": "Manage your tabs in a project sorting by updated at",
+  "name": "todo-extension",
+  "description": "todo extension with vue3",
   "version": "1.1",
   "author": "Sergiu Burduja",
   "action": {
