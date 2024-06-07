@@ -11,7 +11,7 @@ const search = ref("");
       name="search"
       v-model="search"
     />
-    <span>Add new</span>
+    <button>Add new</button>
   </div>
 </template>
 <style lang="scss">
@@ -32,7 +32,7 @@ const search = ref("");
       color: #b3b3b3;
     }
   }
-  span {
+  button {
     display: flex;
     justify-content: space-between;
     align-items: center;
