@@ -1,45 +1,37 @@
-import {ref, watch} from "vue";
-import {defineStore} from "pinia";
-import useGetFromLocalStorage from "../hooks/useGetFromLocalStorage";
-import {IList} from "../interfaces/list/IList";
+import { ref } from "vue";
+import { defineStore } from "pinia";
+import {IList} from "../interfaces/popups/IList";
 
 export const usePopupStore = defineStore("popup", () => {
-    const items = ref<IList[]>();
-    const filtered = ref<IList[]>();
-    const search = ref("");
+  const list = ref<IList[]>([
+    {
+      id: 1,
+      title: "Learn Vue 3",
+      completed: false,
+    },
+    {
+      id: 2,
+      title: "Learn Vuex 4",
+      completed: false,
+    },
+    {
+      id: 3,
+      title: "Learn Vue Router 4",
+      completed: false,
+    },
+    {
+      id: 4,
+      title: "Learn Vue Test Utils",
+      completed: false,
+    },
+    {
+      id: 5,
+      title: "Learn Vue CLI",
+      completed: false,
+    },
+  ]);
 
-    watch(search, (value) => {
-        if (value === "") {
-            filtered.value = items.value;
-        } else {
-            const filtered_lc = items.value?.filter((item) => {
-                return item.title.toLowerCase().includes(value.toLowerCase());
-            });
-            if (filtered_lc && filtered_lc.length > 0) {
-                filtered.value = filtered_lc;
-            }
-        }
-    });
-
-    function updateFromLocalStorage() {
-        const all_tabs = useGetFromLocalStorage();
-        if (all_tabs) {
-            items.value = all_tabs;
-            items.value = items.value?.reverse();
-            filtered.value = items.value;
-            filtered.value = filtered.value.sort((a, b) => {
-                return b.updated_at - a.updated_at;
-            });
-        } else {
-            items.value = [];
-            filtered.value = [];
-        }
-    }
-
-    return {
-        items,
-        filtered,
-        search,
-        updateFromLocalStorage,
-    };
+  return {
+    list,
+  };
 });
