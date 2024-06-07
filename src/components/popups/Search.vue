@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const search = ref("");
+
+function onSubmit() {
+  if (search.value.trim() === "") return;
+  
+  search.value = "";
+}
 </script>
 
 <template>
@@ -11,7 +17,7 @@ const search = ref("");
       name="search"
       v-model="search"
     />
-    <button>Add new</button>
+    <button @click="onSubmit">Add new</button>
   </div>
 </template>
 <style lang="scss">
@@ -44,7 +50,7 @@ const search = ref("");
     background: var(--accent);
     border: 1px solid var(--accent);
     cursor: pointer;
-    transition: all .4s;
+    transition: all 0.4s;
     &:hover {
       color: var(--accent);
       background: white;
