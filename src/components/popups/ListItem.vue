@@ -51,7 +51,7 @@ onMounted(() => {
     cursor: pointer;
   }
   &__edit {
-    margin-right: 0.4rem;
+    margin-right: 0.2rem;
   }
 }
 </style>
