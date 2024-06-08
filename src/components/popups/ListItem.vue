@@ -13,10 +13,17 @@ const props = defineProps({
 });
 const active = ref(false);
 const edit_mode = ref(false);
+const input_ref = ref(null);
 
 async function onDelete(id: number) {
   popup_store.list = popup_store.list.filter((item) => item.id !== id);
   useAddToLocalStorage(popup_store.list);
+}
+function onEdit() {
+  edit_mode.value = true;
+  setTimeout(() => {
+    input_ref.value.focus();
+  }, 100);
 }
 function onBlur(id: number) {
   const index = popup_store.list.findIndex((item) => item.id === id);
@@ -33,6 +40,7 @@ function onBlur(id: number) {
 <template>
   <li v-if="item && item.title" class="list-item">
     <input
+      ref="input_ref"
       @blur="onBlur(item.id)"
       class="list-item__input"
       v-if="edit_mode"
@@ -40,15 +48,10 @@ function onBlur(id: number) {
       :name="`input-${index}`"
       v-model="item.title"
     />
-    <div v-else class="list-item__check">
-      <CheckboxCustom
-        :label="item.title"
-        :name="`checkbox-${index}`"
-        :id="`checkbox-${index}`"
-        v-model:checked="active"
-      />
+    <div v-else class="list-item__title">
+      {{ item.title }}
     </div>
-    <button @click="edit_mode = !edit_mode" class="list-item__edit">
+    <button @click="onEdit" class="list-item__edit">
       <IconEdit />
     </button>
     <button @click="onDelete(item.id)" class="list-item__delete">
@@ -65,7 +68,7 @@ function onBlur(id: number) {
   color: #555;
   border: 1px solid #ececec;
   &__input,
-  &__check {
+  &__title {
     margin-right: auto;
   }
   &__edit,

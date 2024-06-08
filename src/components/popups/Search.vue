@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import {usePopupStore} from "../../stores/popup-store";
+import { usePopupStore } from "../../stores/popup-store";
 import useAddToLocalStorage from "../../hooks/useAddToLocalStorage";
 const popup_store = usePopupStore();
 const search = ref("");
+const search_ref = ref(null);
 
 function onSubmit() {
   if (search.value.trim() === "") return;
@@ -14,18 +15,21 @@ function onSubmit() {
   });
   useAddToLocalStorage(popup_store.list);
   search.value = "";
+  search_ref.value.focus();
 }
 </script>
 
 <template>
   <div class="search">
     <input
+      ref="search_ref"
+      :tabindex="1"
       type="text"
       placeholder="Enter todo..."
       name="search"
       v-model="search"
     />
-    <button @click="onSubmit">Add new</button>
+    <button :tabindex="2" @click="onSubmit">Add new</button>
   </div>
 </template>
 <style lang="scss">
