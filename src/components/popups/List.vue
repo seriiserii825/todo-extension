@@ -13,7 +13,7 @@ import ListItem from "./ListItem.vue";
       :index="index"
     />
   </ul>
-  <h3 class="no-items" v-else>No items</h3>
+  <h3 class="no-items" v-else>No more items...</h3>
 </template>
 <style lang="scss">
 .no-items {

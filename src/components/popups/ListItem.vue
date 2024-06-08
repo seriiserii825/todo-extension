@@ -3,7 +3,6 @@ import { PropType, defineProps, onMounted, ref } from "vue";
 import { IList } from "./../../interfaces/popups/IList";
 import IconEdit from "./../icons/IconEdit.vue";
 import IconTrash from "./../icons/IconTrash.vue";
-import CheckboxCustom from "./../ui/CheckboxCustom.vue";
 import { usePopupStore } from "../../stores/popup-store";
 import useAddToLocalStorage from "../../hooks/useAddToLocalStorage";
 const popup_store = usePopupStore();
@@ -27,9 +26,6 @@ function onEdit() {
 }
 function onBlur(id: number) {
   const index = popup_store.list.findIndex((item) => item.id === id);
-  console.log(index, "index");
-  console.log(props.item, "props.item");
-  console.log(props.item.title, "props.item.title");
   popup_store.list[index].title = props.item.title;
   console.log(popup_store.list[index].title, "popup_store.list[index].title");
   useAddToLocalStorage(popup_store.list);
