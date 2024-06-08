@@ -38,7 +38,7 @@ function onBlur(id: number) {
 </script>
 
 <template>
-  <li v-if="item && item.title" class="list-item">
+  <li class="list-item">
     <input
       ref="input_ref"
       @blur="onBlur(item.id)"
