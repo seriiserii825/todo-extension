@@ -5,7 +5,7 @@ import ListItem from "./ListItem.vue";
 </script>
 
 <template>
-  <ul class="list">
+  <ul v-if="popup_store.list && popup_store.list.length > 0" class="list">
     <ListItem
       v-for="(item, index) in popup_store.list"
       :key="item.id"
@@ -13,4 +13,13 @@ import ListItem from "./ListItem.vue";
       :index="index"
     />
   </ul>
+  <h3 class="no-items" v-else>No items</h3>
 </template>
+<style lang="scss">
+.no-items {
+  margin-top: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+}
+</style>

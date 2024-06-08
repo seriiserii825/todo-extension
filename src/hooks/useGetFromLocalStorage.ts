@@ -1,6 +1,5 @@
-export default function useGetFromLocalStorage() {
-    const lc = localStorage.getItem('all_tabs');
-    if (lc) {
-        return  JSON.parse(lc);
-    }
+export default async function useGetFromLocalStorage() {
+  const result = await chrome.storage.sync.get(["todo-ext"]);
+  return JSON.parse(result["todo-ext"]) || [];
 }
+
