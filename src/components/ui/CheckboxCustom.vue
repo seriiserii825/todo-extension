@@ -59,11 +59,7 @@ function toggleCheckbox(event: Event) {
       :checked="checked"
       @input="toggleCheckbox($event)"
     />
-    <label class="checkbox--privacy" v-if="privacy" :for="id"
-      >{{ label }}
-      <router-link to="/privacy-policy">{{ privacyLabel }}</router-link>
-    </label>
-    <label v-else :for="id"
+    <label :for="id"
       ><span>{{ label }}</span></label
     >
   </div>

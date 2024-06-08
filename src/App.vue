@@ -2,6 +2,7 @@
 import Search from "./components/popups/Search.vue";
 import List from "./components/popups/List.vue";
 import { usePopupStore } from "./stores/popup-store";
+import { onMounted } from "vue";
 
 const popup_store = usePopupStore();
 
@@ -22,6 +23,16 @@ function onExport() {
 function onImport() {
   //
 }
+onMounted(() => {
+  console.log("mounted");
+
+  chrome.storage.sync.get(["todo-ext"]).then((result) => {
+    console.log(result, "result");
+    console.log(result['todo-ext'], "result['todo-ext']");
+    console.log("Value is " + result.key);
+    popup_store.list = JSON.parse(result['todo-ext']) || [];
+  });
+});
 </script>
 <template>
   <div class="popup">

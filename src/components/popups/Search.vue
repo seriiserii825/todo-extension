@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import {usePopupStore} from "../../stores/popup-store";
+import useAddToLocalStorage from "../../hooks/useAddToLocalStorage";
+const popup_store = usePopupStore();
 const search = ref("");
 
 function onSubmit() {
   if (search.value.trim() === "") return;
-  
+  popup_store.list.push({
+    id: Date.now().toString(),
+    title: search.value,
+    completed: false,
+  });
+  useAddToLocalStorage(popup_store.list);
   search.value = "";
 }
 </script>

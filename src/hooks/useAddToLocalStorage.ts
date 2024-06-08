@@ -1,8 +1,10 @@
-export default function useAddToLocalStorage(value: any) {
-    const lc = localStorage.getItem('all_tabs');
-    if (lc) {
-        localStorage.setItem('all_tabs', JSON.stringify([...JSON.parse(lc), value]));
-    } else {
-        localStorage.setItem('all_tabs', JSON.stringify([value]));
-    }
+import {IList} from "../interfaces/popups/IList";
+
+export default function useAddToLocalStorage(value: IList[] | null) {
+  if (!value) {
+    return;
+  }
+  chrome.storage.sync.set({ "todo-ext": JSON.stringify(value) }).then(() => {
+    console.log("Value is set");
+  });
 }
