@@ -1,10 +1,35 @@
 <script setup lang="ts">
 import Search from "./components/popups/Search.vue";
 import List from "./components/popups/List.vue";
+import { usePopupStore } from "./stores/popup-store";
+
+const popup_store = usePopupStore();
+
+function onExport() {
+  console.log(popup_store.list, "popup_store.list");
+  const blob = new Blob([JSON.stringify(popup_store.list)], {
+    type: "application/json",
+  });
+  const url = URL.createObjectURL(blob);
+  const file_name = `export.json`;
+  //@ts-ignore
+  chrome.downloads.download({
+    url: url,
+    filename: file_name,
+    saveAs: true,
+  });
+}
+function onImport() {
+  //
+}
 </script>
 <template>
   <div class="popup">
-    <header class="popup__header">Todo App</header>
+    <header class="popup__header">
+      <span class="popup__title">Todo App</span>
+      <a href="#" @click.prevent="onImport" class="popup__link">Import</a>
+      <a href="#" @click.prevent="onExport" class="popup__link">Export</a>
+    </header>
     <div class="popup__search">
       <Search />
     </div>
@@ -23,9 +48,23 @@ import List from "./components/popups/List.vue";
 }
 .popup {
   &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1.6rem;
-    font-size: 2.4rem;
+    font-size: 1.6rem;
     font-weight: bold;
+  }
+  &__title {
+    margin-right: auto;
+  }
+  &__link {
+    margin-left: 1.6rem;
+    text-decoration: none;
+    color: var(--contrast);
+    &:last-of-type {
+      color: var(--accent);
+    }
   }
   &__search {
     margin-bottom: 1.6rem;
