@@ -25,6 +25,7 @@ function onExport() {
   });
 }
 function onImport() {
+  //@ts-ignore
   const file = file_ref.value.files[0];
   if (file) {
     const reader = new FileReader();
