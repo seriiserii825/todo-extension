@@ -16,8 +16,11 @@ const edit_mode = ref(false);
 const input_ref = ref(null);
 
 async function onDelete(id: number) {
+  const ensure = confirm("Are you sure you want to delete this item?");
+  if (!ensure) return;
   popup_store.list = popup_store.list.filter((item) => item.id !== id);
   useAddToLocalStorage(popup_store.list);
+  useNotification('Todo item', `Todo item "${props.item.title}" deleted successfully!`)
 }
 function onEdit() {
   edit_mode.value = true;
