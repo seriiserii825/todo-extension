@@ -5,6 +5,7 @@ import IconEdit from "./../icons/IconEdit.vue";
 import IconTrash from "./../icons/IconTrash.vue";
 import { usePopupStore } from "../../stores/popup-store";
 import useAddToLocalStorage from "../../hooks/useAddToLocalStorage";
+import useNotification from "../../hooks/useNotification";
 const popup_store = usePopupStore();
 const props = defineProps({
   item: Object as PropType<IList>,
@@ -30,6 +31,8 @@ function onBlur(id: number) {
   console.log(popup_store.list[index].title, "popup_store.list[index].title");
   useAddToLocalStorage(popup_store.list);
   edit_mode.value = false;
+  const title = `Todo item "${popup_store.list[index].title}" updated successfully!`;
+  useNotification(title, '')
 }
 </script>
 

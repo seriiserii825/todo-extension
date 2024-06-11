@@ -1,4 +1,4 @@
-export default function useNotification(title: string, message: string) {
+export default function useNotification(title: string, message?: string) {
   let optionNotif = {
     type: "basic",
     title,
