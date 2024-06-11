@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { usePopupStore } from "../../stores/popup-store";
 import useAddToLocalStorage from "../../hooks/useAddToLocalStorage";
+import useNotification from "../../hooks/useNotification";
 const popup_store = usePopupStore();
 const search = ref("");
 const search_ref = ref(null);
@@ -14,6 +15,7 @@ function onSubmit() {
     completed: false,
   });
   useAddToLocalStorage(popup_store.list);
+  useNotification('Todo Search', `Todo "${search.value}" added successfully!`)
   search.value = "";
   search_ref.value.focus();
 }

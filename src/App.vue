@@ -42,6 +42,7 @@ function onImport() {
 }
 onMounted(async () => {
   popup_store.list = await useGetFromLocalStorage();
+
 });
 </script>
 <template>
