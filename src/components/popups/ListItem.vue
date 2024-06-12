@@ -28,6 +28,17 @@ function onEdit() {
     input_ref.value.focus();
   }, 100);
 }
+function onChange() {
+  const current_popup = popup_store.list.find((item) => item.id === props.item.id);
+  popup_store.list = popup_store.list.filter((item) => item.id !== props.item.id);
+  if (current_popup?.completed){
+    current_popup.completed = false;
+    popup_store.list.unshift(current_popup);
+  } else {
+    current_popup.completed = true;
+    popup_store.list.push(current_popup);
+  }
+}
 function onBlur(id: number) {
   const index = popup_store.list.findIndex((item) => item.id === id);
   popup_store.list[index].title = props.item.title;
@@ -50,13 +61,13 @@ function onBlur(id: number) {
       :name="`input-${index}`"
       v-model="item.title"
     />
-    <div v-else class="list-item__title">
+    <div @click="onChange" v-else class="list-item__title" :class="{'completed': item?.completed}">
       {{ item.title }}
     </div>
-    <button @click="onEdit" class="list-item__edit">
+    <button v-if="!item?.completed" @click="onEdit" class="list-item__edit">
       <IconEdit />
     </button>
-    <button @click="onDelete(item.id)" class="list-item__delete">
+    <button v-if="item?.completed" @click="onDelete(item.id)" class="list-item__delete">
       <IconTrash />
     </button>
   </li>
@@ -72,6 +83,13 @@ function onBlur(id: number) {
   &__input,
   &__title {
     margin-right: auto;
+  }
+  &__title {
+    cursor: pointer;
+    &.completed {
+      text-decoration: line-through;
+    }
+  
   }
   &__edit,
   &__delete {
