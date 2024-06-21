@@ -5,7 +5,7 @@ import IconEdit from "./../icons/IconEdit.vue";
 import IconTrash from "./../icons/IconTrash.vue";
 import { usePopupStore } from "../../stores/popup-store";
 import useAddToLocalStorage from "../../hooks/useAddToLocalStorage";
-import useNotification from "../../hooks/useNotification";
+// import useNotification from "../../hooks/useNotification";
 const popup_store = usePopupStore();
 const props = defineProps({
   item: Object as PropType<IList>,
@@ -20,7 +20,7 @@ async function onDelete(id: number) {
   if (!ensure) return;
   popup_store.list = popup_store.list.filter((item) => item.id !== id);
   useAddToLocalStorage(popup_store.list);
-  useNotification('Todo item', `Todo item "${props.item.title}" deleted successfully!`)
+  // useNotification('Todo item', `Todo item "${props.item.title}" deleted successfully!`)
 }
 function onEdit() {
   edit_mode.value = true;
@@ -46,7 +46,7 @@ function onBlur(id: number) {
   useAddToLocalStorage(popup_store.list);
   edit_mode.value = false;
   const title = `Todo item "${popup_store.list[index].title}" updated successfully!`;
-  useNotification(title, '')
+  // useNotification(title, '')
 }
 </script>
 
