@@ -50,11 +50,11 @@ onMounted(async () => {
   <div class="popup">
     <header class="popup__header">
       <span class="popup__title">Todo App</span>
-      <!-- <button class="popup__import"> -->
-      <!--   <span>Import</span> -->
-      <!--   <input @change="onImport" ref="file_ref" type="file" id="fileInput" /> -->
-      <!-- </button> -->
-      <!-- <a href="#" @click.prevent="onExport" class="popup__link">Export</a> -->
+      <button class="popup__import">
+        <span>Import</span>
+        <input @change="onImport" ref="file_ref" type="file" id="fileInput" />
+      </button>
+      <a href="#" @click.prevent="onExport" class="popup__link">Export</a>
     </header>
     <div class="popup__search">
       <Search />
