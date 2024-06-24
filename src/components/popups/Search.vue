@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { usePopupStore } from "../../stores/popup-store";
 import useAddToLocalStorage from "../../hooks/useAddToLocalStorage";
 import useNotification from "../../hooks/useNotification";
@@ -15,10 +15,16 @@ function onSubmit() {
     completed: false,
   });
   useAddToLocalStorage(popup_store.list);
-  useNotification('Todo Search', `Todo "${search.value}" added successfully!`)
   search.value = "";
   search_ref.value.focus();
 }
+onMounted(() => {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      onSubmit();
+    }
+  });
+});
 </script>
 
 <template>
